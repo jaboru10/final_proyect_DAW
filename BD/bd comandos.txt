@@ -1,0 +1,2 @@
+*AÑADIR LAS FK*
+ALTER TABLE pista ADD FOREIGN KEY(id_deporte) REFERENCES deporte(id_deporte);
