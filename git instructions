@@ -1,0 +1,5 @@
+*genere una clave ssh desde la maquina virtual para meterla en github
+
+	git add .
+	git commit -m "info"
+	git push origin main
