@@ -14,5 +14,7 @@ class Deporte extends Model
         'nombre','numero_jugadores'
     ];
 
+    //no trabajo con las columna timestamp
+    public $timestamps=false;
 
 }

@@ -26,6 +26,9 @@
                         <div class="col-auto my-1">
                             <input type="submit" class="btn btn-primary" value="Buscar">
                         </div>
+                        <div class="col-auto my-1">
+                            <a href="{{route('deporte.create')}}" class="btn btn-success">Nuevo</a>
+                        </div>
                     </div>
                 </form>
             </div>

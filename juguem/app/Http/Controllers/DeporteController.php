@@ -37,6 +37,7 @@ class DeporteController extends Controller
     public function create()
     {
         //
+        return view('deporte.create');
     }
 
     /**
@@ -48,6 +49,15 @@ class DeporteController extends Controller
     public function store(Request $request)
     {
         //
+        $deporte=new Deporte;
+        //$deporte->id_deporte=3;//esto esta mal
+        //$deporte->id_deporte=unsignedBigInteger('track_id')->nullable();
+        $deporte->nombre=$request->input('nombre');
+        $deporte->numero_jugadores=$request->input('numero_jugadores');
+        $deporte->save();
+        return redirect()->route('deporte.index');
+
+
     }
 
     /**
