@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.1
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 11-04-2022 a las 18:28:19
--- Versión del servidor: 10.4.21-MariaDB
--- Versión de PHP: 7.3.30
+-- Tiempo de generación: 06-12-2022 a las 22:45:52
+-- Versión del servidor: 10.4.27-MariaDB
+-- Versión de PHP: 8.0.25
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de datos: `proyectofinaldam`
+-- Base de datos: `juguem`
 --
 
 -- --------------------------------------------------------
@@ -31,15 +31,15 @@ CREATE TABLE `deporte` (
   `id_deporte` int(11) NOT NULL,
   `nombre` varchar(20) NOT NULL,
   `numero_jugadores` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `deporte`
 --
 
 INSERT INTO `deporte` (`id_deporte`, `nombre`, `numero_jugadores`) VALUES
-(0, 'baloncesto', 10),
-(1, 'futbol', 11);
+(1, 'padel', 2),
+(2, 'baloncesto', 10);
 
 -- --------------------------------------------------------
 
@@ -51,7 +51,7 @@ CREATE TABLE `localidad` (
   `id_localidad` int(11) NOT NULL,
   `nombre` varchar(10) NOT NULL,
   `provincia` varchar(10) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `localidad`
@@ -73,14 +73,7 @@ CREATE TABLE `partida` (
   `id_partida` int(11) NOT NULL,
   `id_pista` int(11) NOT NULL,
   `fecha_partida` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Volcado de datos para la tabla `partida`
---
-
-INSERT INTO `partida` (`id_partida`, `id_pista`, `fecha_partida`) VALUES
-(3, 2, '2022-04-10 19:00:00');
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -91,15 +84,7 @@ INSERT INTO `partida` (`id_partida`, `id_pista`, `fecha_partida`) VALUES
 CREATE TABLE `partida_usuario` (
   `id_partida` int(11) NOT NULL,
   `id_usuario` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Volcado de datos para la tabla `partida_usuario`
---
-
-INSERT INTO `partida_usuario` (`id_partida`, `id_usuario`) VALUES
-(3, 1),
-(3, 2);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -112,15 +97,7 @@ CREATE TABLE `pista` (
   `id_localidad` int(11) NOT NULL,
   `id_deporte` int(11) NOT NULL,
   `direccion` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Volcado de datos para la tabla `pista`
---
-
-INSERT INTO `pista` (`id_pista`, `id_localidad`, `id_deporte`, `direccion`) VALUES
-(2, 1, 0, 'Carrer Ismael Tomas Alacreu 6 46250 Alcudia Valenc'),
-(3, 2, 1, 'Carrer Albalat 0 46680 Algemesi Valencia');
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -133,7 +110,7 @@ CREATE TABLE `usuario` (
   `id_localidad` int(11) NOT NULL,
   `nombre` varchar(10) NOT NULL,
   `apellidos` varchar(10) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `usuario`
@@ -151,8 +128,7 @@ INSERT INTO `usuario` (`id_usuario`, `id_localidad`, `nombre`, `apellidos`) VALU
 -- Indices de la tabla `deporte`
 --
 ALTER TABLE `deporte`
-  ADD PRIMARY KEY (`id_deporte`),
-  ADD KEY `id_deporte` (`id_deporte`);
+  ADD PRIMARY KEY (`id_deporte`);
 
 --
 -- Indices de la tabla `localidad`
@@ -179,8 +155,8 @@ ALTER TABLE `partida_usuario`
 --
 ALTER TABLE `pista`
   ADD PRIMARY KEY (`id_pista`),
-  ADD KEY `id_deporte` (`id_deporte`),
-  ADD KEY `id_localidad` (`id_localidad`);
+  ADD KEY `id_localidad` (`id_localidad`),
+  ADD KEY `id_deporte` (`id_deporte`);
 
 --
 -- Indices de la tabla `usuario`
@@ -192,6 +168,12 @@ ALTER TABLE `usuario`
 --
 -- AUTO_INCREMENT de las tablas volcadas
 --
+
+--
+-- AUTO_INCREMENT de la tabla `deporte`
+--
+ALTER TABLE `deporte`
+  MODIFY `id_deporte` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `localidad`
@@ -239,8 +221,8 @@ ALTER TABLE `partida_usuario`
 -- Filtros para la tabla `pista`
 --
 ALTER TABLE `pista`
-  ADD CONSTRAINT `pista_ibfk_1` FOREIGN KEY (`id_deporte`) REFERENCES `deporte` (`id_deporte`),
-  ADD CONSTRAINT `pista_ibfk_2` FOREIGN KEY (`id_localidad`) REFERENCES `localidad` (`id_localidad`);
+  ADD CONSTRAINT `pista_ibfk_2` FOREIGN KEY (`id_localidad`) REFERENCES `localidad` (`id_localidad`),
+  ADD CONSTRAINT `pista_ibfk_3` FOREIGN KEY (`id_deporte`) REFERENCES `deporte` (`id_deporte`);
 
 --
 -- Filtros para la tabla `usuario`
