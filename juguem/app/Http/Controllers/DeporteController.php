@@ -80,6 +80,9 @@ class DeporteController extends Controller
     public function edit($id)
     {
         //
+        $deporte=Deporte::findOrFail($id);
+        
+        return view('deporte.edit',compact('deporte'));
     }
 
     /**
@@ -92,6 +95,11 @@ class DeporteController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $deporte=Deporte::findOrFail($id);
+        $deporte->nombre=$request->input('nombre');
+        $deporte->numero_jugadores=$request->input('numero_jugadores');
+        $deporte->save();
+        return redirect()->route('deporte.index');
     }
 
     /**
@@ -103,5 +111,10 @@ class DeporteController extends Controller
     public function destroy($id)
     {
         //
+        $deporte=Deporte::findOrFail($id);
+        $deporte->delete();
+        return redirect()->route('deporte.index');
+
+
     }
 }
