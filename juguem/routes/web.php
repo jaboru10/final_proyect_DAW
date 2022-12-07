@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\DeporteController;
+use App\Http\Controllers\LocalidadController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,6 +20,7 @@ Route::get('/', function () {
 });
 
 Route::resource('/deporte', DeporteController::class );
+Route::resource('/localidad', LocalidadController::class );
 
 Auth::routes();
 
