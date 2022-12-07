@@ -16,4 +16,9 @@ class Localidad extends Model
  
      //no trabajo con las columna timestamp
      public $timestamps=false;
+
+     //relacion uno a muchos
+     public function pistas(){
+        return $this->hasMany('App\Models\Pista');
+     }
 }

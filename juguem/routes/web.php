@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\DeporteController;
 use App\Http\Controllers\LocalidadController;
+use App\Http\Controllers\PistaController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -21,6 +22,7 @@ Route::get('/', function () {
 
 Route::resource('/deporte', DeporteController::class );
 Route::resource('/localidad', LocalidadController::class );
+Route::resource('/pista', PistaController::class );
 
 Auth::routes();
 
