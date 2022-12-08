@@ -62,7 +62,7 @@
                         <label for="fecha">Fecha de la partida</label>
                         <input id="datepicker" name="datapicker"width="276" />
                     </div>
-                    
+                    </form>
 
                     <script>
                         //preparo el calendario
@@ -70,6 +70,10 @@
                             dateFormat: "yy-mm-dd",
                             timeFormat: "hh:mm:ss"
                         });
+                        //SELECTORES
+                        var select_pista=document.getElementById("direccion");
+                        var select_localidad=document.getElementById("nombre_localidad");
+                        var select_deporte=document.getElementById("nombre_deporte");
 
                         //INICIO PAGINA
                         document.getElementById("nombre_deporte").disabled = true;
@@ -90,7 +94,8 @@
                             form.addEventListener("input", function () {
                             document.getElementById("direccion").disabled = false;
                             console.log("Form has changed!");
-                            select_pista.options.length = 0;
+                            //select_pista.options.length = 0;
+                            //select_pista.innerHTML = "";
 
                             // Asignar una función como controlador de eventos para el evento 'focus'
                             const select = document.querySelector('select');
@@ -99,8 +104,9 @@
                                 <?php 
                                         use App\Http\Controllers\PartidaController;    
                                         {{ $partidas=PartidaController::returnPistas("1","2"); }} 
-                                        //echo "updateOptions(".$partidas.");";
+                                         
                                 ?>
+                                updateOptions($partidas);
                             });
                         
                                 });
@@ -113,6 +119,7 @@
 
                         // Función que actualiza las opciones del select
                         function updateOptions(options) {
+                            console.log("llego hasta aqui changed!");
                             // Eliminar las opciones existentes
                             select_pista.innerHTML = "";
 
@@ -133,7 +140,7 @@
                         <input type="reset" class="btn btn-default" value="Cancelar">
                         <a href="javascript:history.back()">Ir al listado</a>
                     </div>
-                </form>
+                
             </div>
         </div>
 

@@ -3,9 +3,9 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-8">
+        <div class="col-md-12">
             <div class="card">
-                <div class="card-header">{{ __('Dashboard') }}</div>
+                <div class="card-header">{{ __('Bienvenido a la app para disfrutar el deporte') }}</div>
 
                 <div class="card-body">
                     @if (session('status'))
@@ -14,21 +14,23 @@
                         </div>
                     @endif
 
-                    {{ __('You are logged in!') }}
+                   <!-- {{ __('You are logged in!') }}-->
                     <div class="container text-center">
   <div class="row g-2">
-    <div class="col-6">
-      <div class=" btn p-3 border bg-light">Crear partida</div>
-    </div>
-    <div class="col-6">
-      <div class="p-3 border bg-light">Buscar Partida</div>
-    </div>
-    <div class="col-6">
-      <div class="p-3 border bg-light">Mis Partidas</div>
-    </div>
-    <div class="col-6">
-      <div class="p-3 border bg-light">Mi Perfil</div>
-    </div>
+    <div class="p-3 border bg-light col-6">
+      <a href="{{route('partida.create')}}">Crear partida</a>
+     </div>
+
+     <div class="p-3 border bg-light col-6">
+      <a href="{{route('partida.index')}}" >Buscar Partida</a>
+     </div>
+   
+    <div class="p-3 border bg-light col-6">
+      <a href="{{route('partida.index')}}" >Mis Partidas</a>
+     </div>
+     <div class="p-3 border bg-light col-6">
+      <a href="{{route('partida.index')}}" >Mi perfil</a>
+     </div>
   </div>
 </div>
                 </div>
