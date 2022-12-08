@@ -20,37 +20,37 @@ class PartidaController extends Controller
      */
     public function index(Request $request)
     {
-        $texto=trim($request->get('texto'));
-        $partidas=DB::table('partida')//UTILIZAMOS query builder para hacer consultas a bd
-                    ->select('id_partida','id_pista','fecha_partida')
-                    //->where('fecha_partida','LIKE','%'.$texto.'%')
-                    //->orWhere('nombre','LIKE','%'.$texto.'%')
-                    ->orderBy('fecha_partida','asc')
-                    ->paginate(5);
-        
-        
-        $usuario=User::find(1);
+        $texto = trim($request->get('texto'));
+        $partidas = DB::table('partida') //UTILIZAMOS query builder para hacer consultas a bd
+            ->select('id_partida', 'id_pista', 'fecha_partida')
+            //->where('fecha_partida','LIKE','%'.$texto.'%')
+            //->orWhere('nombre','LIKE','%'.$texto.'%')
+            ->orderBy('fecha_partida', 'asc')
+            ->paginate(5);
+
+
+        $usuario = User::find(1);
         print $usuario->nombre;
         //array_push($partidas,$usuario->nombre);
-        foreach($partidas as $partida){
-            
+        foreach ($partidas as $partida) {
 
-            
+
+
             $pista = Pista::find(1);
-            $partida->id_pista=$pista->direccion;
+            $partida->id_pista = $pista->direccion;
 
 
             //$deporte=Deporte::findOrFail($partida->id_deporte);
             //$partida->id_deporte=$deporte->nombre;
-            
-         }
-         
+
+        }
 
 
 
-        
-        return view('partida.index',compact('partidas','texto'));//cuando se a llamado el partida index enviara la vista con todo s los partidas pasados a la vista de BD
-       
+
+
+        return view('partida.index', compact('partidas', 'texto')); //cuando se a llamado el partida index enviara la vista con todo s los partidas pasados a la vista de BD
+
 
     }
 
@@ -59,10 +59,24 @@ class PartidaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
-        return view('partida.create');
+        //consultando la base de datos
+        $localidades = DB::table('localidad') //UTILIZAMOS query builder para hacer consultas a bd
+            ->select('id_localidad', 'nombre', 'provincia')
+            //->where('nombre','LIKE','%'.$texto.'%')
+            //->orWhere('nombre','LIKE','%'.$texto.'%')
+            ->orderBy('nombre', 'asc')
+            ->paginate(5);
+        
+        //utilizando el orm
+        $deportes=Deporte::all();
+        $pistas=Pista::all();
+
+        
+        
+        
+        return view('partida.create', compact('localidades','deportes','pistas'));
     }
 
     /**
@@ -74,14 +88,15 @@ class PartidaController extends Controller
     public function store(Request $request)
     {
         //
-        $partida=new Partida;
+        $partida = new Partida;
+
+        
         //$partida->id_partida=3;//esto esta mal
         //$partida->id_partida=unsignedBigInteger('track_id')->nullable();
-        $partida->direccion=$request->input('direccion');
+        $partida->id_pista = $request->input('5');
+        $partida->fecha_partida = $request->input('datepicker');
         $partida->save();
         return redirect()->route('partida.index');
-
-
     }
 
     /**
@@ -104,9 +119,9 @@ class PartidaController extends Controller
     public function edit($id)
     {
         //
-        $partida=Partida::findOrFail($id);
-        
-        return view('partida.edit',compact('partida'));
+        $partida = Partida::findOrFail($id);
+
+        return view('partida.edit', compact('partida'));
     }
 
     /**
@@ -119,8 +134,8 @@ class PartidaController extends Controller
     public function update(Request $request, $id)
     {
         //
-        $partida=Partida::findOrFail($id);
-        $partida->direccion=$request->input('direccion');
+        $partida = Partida::findOrFail($id);
+        $partida->direccion = $request->input('direccion');
         $partida->save();
         return redirect()->route('partida.index');
     }
@@ -134,10 +149,26 @@ class PartidaController extends Controller
     public function destroy($id)
     {
         //
-        $partida=Partida::findOrFail($id);
-       // $partida->delete();
+        $partida = Partida::findOrFail($id);
+        // $partida->delete();
         return redirect()->route('partida.index');
+    }
+
+    static function returnPistas($id_localidad,$id_deporte)
+    {
+        //
+        //$pistas = Pista::findOrFail($id_localidad);
 
 
+
+
+        $pistas = DB::table('pista') //UTILIZAMOS query builder para hacer consultas a bd
+        ->select('id_pista', 'id_localidad', 'id_deporte','direccion')
+        ->where('id_localidad','LIKE','%'.$id_localidad.'%')
+        ->where('id_deporte','LIKE','%'.$id_deporte.'%')
+        //->orderBy('nombre', 'asc')
+        ->paginate(5);
+
+        return redirect()->route('partida.index');
     }
 }
