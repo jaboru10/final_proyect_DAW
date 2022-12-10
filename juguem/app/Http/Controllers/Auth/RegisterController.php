@@ -83,14 +83,14 @@ class RegisterController extends Controller
 
     
         $provinciaRecibida = request()->input('provincia');
+        $pro='Valencia';
         $localidades=DB::table('localidad')
                     ->select('id_localidad','nombre','provincia')
-                    ->where('provincia','LIKE','%'.$provinciaRecibida.'%')
+                    ->where('provincia',$provinciaRecibida)
                     ->get();
-        //echo $size = count($localidades);
         return response()->json($localidades);
                    
-        return $localidades;
+        
 
       
     }

@@ -181,8 +181,11 @@
                             $.ajax({
                                 url: "{{ route('ajaxRequest') }}",
                                 method: 'GET',
+                                data:{provincia:provincia},
                                
                                 success: function(data) {
+                                    //vacio el select
+                                    form_localidad.innerHTML = '';
                                     console.log("success->"+provincia);
                                     for (var property in data) {
                                         // access the current property in the JSON object
