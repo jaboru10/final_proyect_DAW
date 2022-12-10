@@ -176,28 +176,15 @@
                             console.log("Form has changed!");
                             var provincia = $(this).val();
                             console.log("llega hasta aqui->"+provincia);
+                           
                             $.ajax({
-                                
-                             
-                                type:'POST',
-                                //url: "{{route('register/localidades')}}",
-                                method: 'POST',
-                                dataType: 'JSON',
-                                contentType: false,
-                                cache: false,
-                                processData: false,
-                                success:function(response)
-                                {
-                                    //$(form).trigger("reset");
-                                    alert(response.success)
-                                },
-                                error: function(response) {
+                                url: "{{ route('ajaxRequest') }}",
+                                method: 'GET',
+                               
+                                success: function(data) {
+                                    console.log(data);
                                 }
                             });
-
-
-
-                            
                             });
 
 
