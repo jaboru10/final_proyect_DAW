@@ -32,7 +32,7 @@ Route::resource('/user', UserController::class );
 
 //Route::get('register/localidades', 'Auth\RegisterController@returnLocalidades');
 //Route::post('register/localidades', 'Auth\RegisterController@returnLocalidades');
-Route::get('register/localidades', [RegisterController::class, 'returnLocalidades']);
+Route::get('register/localidades', [RegisterController::class, 'returnLocalidades'])->name('ajaxRequest');;
 Route::post('register/localidades', [RegisterController::class, 'returnLocalidades']);
 
 

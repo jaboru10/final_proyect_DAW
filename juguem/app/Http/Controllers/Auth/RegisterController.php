@@ -80,13 +80,8 @@ class RegisterController extends Controller
     protected function returnLocalidades(Request $request)
     {
 
-        $provinciaRecibida = $request->validate([
-            'provincia' => 'provincia'
-        ]);
-
-        $localidades=DB::table('localidad')//UTILIZAMOS query builder para hacer consultas a bd
-        ->select('id_localidad','nombre','provincia');
-        //->where('nombre','=','%'.$provinciaRecibida->.'%');
+       /*
+       */
         return "dsds";
 
       /*
