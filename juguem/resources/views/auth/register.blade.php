@@ -169,9 +169,10 @@
         }
     });
     //change LOCALIDAD
-    var form = document.getElementById("provincia");
+    var form_provincia = document.getElementById("provincia");
+    var form_localidad= document.getElementById("localidad");
                             
-                            form.addEventListener("input", function () {
+                            form_provincia.addEventListener("input", function () {
        
                             console.log("Form has changed!");
                             var provincia = $(this).val();
@@ -182,7 +183,30 @@
                                 method: 'GET',
                                
                                 success: function(data) {
-                                    console.log(data);
+                                    console.log("success->"+provincia);
+                                    for (var property in data) {
+                                        // access the current property in the JSON object
+                                        var value = data[property];
+
+                                        // do something with the property
+                                        console.log(value);
+
+
+
+                                        var option = document.createElement("option");
+
+                                            // set the value and text of the option
+                                            option.value = value.id_localidad;
+                                            option.text = value.nombre;
+
+                                            // add the option to the select element
+                                            form_localidad.appendChild(option);
+
+
+
+                                        }
+
+
                                 }
                             });
                             });

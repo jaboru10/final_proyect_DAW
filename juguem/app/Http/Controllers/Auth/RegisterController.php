@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
+use Response;
 
 class RegisterController extends Controller
 {
@@ -80,21 +81,17 @@ class RegisterController extends Controller
     protected function returnLocalidades(Request $request)
     {
 
-       /*
-       */
-        return "dsds";
-
-      /*
-        $project = User::create($data);
-        return response()->json(['success'=>'Laravel ajax example is being processed.']);
-
+    
         $provinciaRecibida = request()->input('provincia');
-        
-        $localidades=DB::table('localidad')//UTILIZAMOS query builder para hacer consultas a bd
+        $localidades=DB::table('localidad')
                     ->select('id_localidad','nombre','provincia')
-                    ->where('nombre','=','%'.$provinciaRecibida.'%');
-
+                    ->where('provincia','LIKE','%'.$provinciaRecibida.'%')
+                    ->get();
+        //echo $size = count($localidades);
+        return response()->json($localidades);
+                   
         return $localidades;
-        */
+
+      
     }
 }
