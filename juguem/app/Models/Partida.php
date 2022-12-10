@@ -19,6 +19,7 @@ class Partida extends Model
 
     //relacion uno a muchos(inversa)
     public function usuarios(){
-       return $this->belongsTo('App\Models\Usuario');
+        echo '--llega al controler users--';
+       return $this->belongsToMany('App\Models\User');
 }
 }

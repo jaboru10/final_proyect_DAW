@@ -3,11 +3,15 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\LocalidadController;
+use App\Models\Localidad;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Http\Request;
 
 class RegisterController extends Controller
 {
@@ -53,6 +57,8 @@ class RegisterController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'localidad' => ['required', 'string', 'min:3'],
+            'provincia' => ['required', 'string', 'min:8',],
         ]);
     }
 
@@ -64,10 +70,36 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        //llamar al controlador para que me diga si la localidad es correcta
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
+    }
+    protected function returnLocalidades(Request $request)
+    {
+
+        $provinciaRecibida = $request->validate([
+            'provincia' => 'provincia'
+        ]);
+
+        $localidades=DB::table('localidad')//UTILIZAMOS query builder para hacer consultas a bd
+        ->select('id_localidad','nombre','provincia');
+        //->where('nombre','=','%'.$provinciaRecibida->.'%');
+        return "dsds";
+
+      /*
+        $project = User::create($data);
+        return response()->json(['success'=>'Laravel ajax example is being processed.']);
+
+        $provinciaRecibida = request()->input('provincia');
+        
+        $localidades=DB::table('localidad')//UTILIZAMOS query builder para hacer consultas a bd
+                    ->select('id_localidad','nombre','provincia')
+                    ->where('nombre','=','%'.$provinciaRecibida.'%');
+
+        return $localidades;
+        */
     }
 }

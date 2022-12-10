@@ -29,7 +29,7 @@
       <a href="{{route('partida.index')}}" >Mis Partidas</a>
      </div>
      <div class="p-3 border bg-light col-6">
-      <a href="{{route('partida.index')}}" >Mi perfil</a>
+      <a href="{{route('user.index')}}" >Mi perfil</a>
      </div>
   </div>
 </div>

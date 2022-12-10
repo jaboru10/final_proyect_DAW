@@ -8,7 +8,6 @@ use App\Models\Pista;
 use App\Models\Localidad;
 use App\Models\Deporte;
 use App\Models\User;
-use App\Models\Usuario;
 use Illuminate\Support\Facades\DB;
 
 class PartidaController extends Controller
@@ -20,36 +19,29 @@ class PartidaController extends Controller
      */
     public function index(Request $request)
     {
-        $texto = trim($request->get('texto'));
-        $partidas = DB::table('partida') //UTILIZAMOS query builder para hacer consultas a bd
-            ->select('id_partida', 'id_pista', 'fecha_partida')
-            //->where('fecha_partida','LIKE','%'.$texto.'%')
-            //->orWhere('nombre','LIKE','%'.$texto.'%')
-            ->orderBy('fecha_partida', 'asc')
-            ->paginate(5);
-
-
-        $usuario = User::find(1);
-        print $usuario->nombre;
-        //array_push($partidas,$usuario->nombre);
+        
+        $partidas=Partida::all();
+        $userId = auth()->user()->id;
+        echo '+'.$userId;
+        $usuario = User::find($userId);
+        echo '*'.$usuario->nombre;
         foreach ($partidas as $partida) {
-
-
-
             $pista = Pista::find(1);
-            $partida->id_pista = $pista->direccion;
-
-
-            //$deporte=Deporte::findOrFail($partida->id_deporte);
-            //$partida->id_deporte=$deporte->nombre;
-
         }
 
+       // $tamaño = count( User::find);
 
 
-
-
-        return view('partida.index', compact('partidas', 'texto')); //cuando se a llamado el partida index enviara la vista con todo s los partidas pasados a la vista de BD
+        echo '\--llega--';
+        foreach ($partidas as $partida) {
+            $usuarios=$partida->usuarios()->get();
+            $tamaño = count($usuarios);
+            echo '***el tamaño es'.$tamaño.'*****';
+            foreach ($usuarios as $user) {
+                //echo '---->'.$user->name."'<----'";
+            }
+        }
+        return view('partida.index', compact('partidas')); //cuando se a llamado el partida index enviara la vista con todo s los partidas pasados a la vista de BD
 
 
     }
