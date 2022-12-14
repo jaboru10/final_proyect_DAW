@@ -141,12 +141,6 @@
 
                         });
 
-
-
-
-
-
-
                         // Función que actualiza las opciones del select
                         function updateOptions(options) {
                             console.log("llego hasta aqui changed!");

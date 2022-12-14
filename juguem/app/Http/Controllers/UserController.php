@@ -124,6 +124,7 @@ class UserController extends Controller
 
     
         $provinciaRecibida = request()->input('provincia');
+        echo $provinciaRecibida;
         $localidades=DB::table('localidad')
                     ->select('id_localidad','nombre','provincia')
                     ->where('provincia',$provinciaRecibida)

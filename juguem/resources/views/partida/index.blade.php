@@ -77,7 +77,7 @@
                                 -->
                                 
                 
-                                <td>Baloncesto</td>
+                                <td>{{$deportesdelasPistas[$i]->id_deporte}}</td>
                                 <td>{{$direccionesDeLasPistas[$i]}}</td>
                                 <td><button  class="btn btn-warning btn-sm" id="mostrar">Mostrar</button></td>
                                 <td>{{$partida->fecha_partida}}</td>

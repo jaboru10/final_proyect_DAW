@@ -24,7 +24,10 @@ Route::get('/', function () {
     return view('auth/login');
 });
 Auth::routes();
-Route::resource('/deporte', DeporteController::class );
+Route::group(['middleware' => 'middleAcceso'], function () {
+    
+});
+Route::resource('/deporte', DeporteController::class );  
 Route::resource('/localidad', LocalidadController::class );
 Route::resource('/pista', PistaController::class );
 Route::resource('/partida', PartidaController::class);

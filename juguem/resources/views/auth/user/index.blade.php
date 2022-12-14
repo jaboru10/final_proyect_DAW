@@ -20,8 +20,20 @@
 </head>
 
 <body>
+@extends('layouts.app')
+
+@section('content')
     <div class="container">
-        <h4>Gestión del perfil de Usuario</h4>
+
+
+    <div class="d-flex justify-content-center">
+            <p class="font-weight-bold">
+            <h1 class="display-4 ">Gestión del perfil de Usuario</h1>
+            </p>
+        </div>
+
+
+        
         <div class="row">
             <div class="col-xl-12">
                 <form action="{{route('partida.store')}}" method="post">
@@ -131,5 +143,5 @@
 
     </div>
 </body>
-
+@endsection
 </html>
