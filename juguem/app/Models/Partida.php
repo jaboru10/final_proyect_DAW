@@ -11,7 +11,7 @@ class Partida extends Model
     protected $table="partida";
     protected $primaryKey="id_partida";
     protected $fillable = [
-        'id_pista','fecha_partida'
+        'id_pista','fecha_partida','min_jugadores','max_jugadores','partida_cerrada','jugada'
     ];
 
     //no trabajo con las columna timestamp
@@ -19,7 +19,7 @@ class Partida extends Model
 
     //relacion uno a muchos(inversa)
     public function usuarios(){
-        echo '--llega al controler users--';
+        
        return $this->belongsToMany('App\Models\User');
 }
 }

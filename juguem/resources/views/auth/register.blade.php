@@ -2,7 +2,6 @@
 <html>
 
 <head>
-    <title>this is my mater page</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <!-- JavaScript Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
@@ -50,21 +49,24 @@
                             <div class="row mb-3">
                                 <label for="provincia" class="col-md-4 col-form-label text-md-end">{{ __('Provincia') }}</label>
                                 <div class="col-md-6">
-                                    <select class="form-select" aria-label="provincia" name="provincia" id="provincia">
-                                        <option value="none" selected disabled hidden>Seleccione una provincia</option>
-                                        <option selected></option>
+                                    <select class="form-select @error('provincia') is-invalid @enderror" aria-label="provincia" name="provincia" id="provincia">
+                                        <option value="none" selected disabled hidden>Seleccione una provincia</option>                                        
                                         @foreach($localidades as $localidad)
                                         <option value='{{$localidad->provincia}}'>{{$localidad->provincia}}</option>
                                         @endforeach
                                     </select>
+                                    @error('provincia')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                    @enderror
                                 </div>
+                            </div>
                                 <div class="row mb-3">
                                     <label for="localidad" class="col-md-4 col-form-label text-md-end">{{ __('Localidad') }}</label>
                                     <div class="col-md-6">
-                                        <select class="form-select" aria-label="localidad" name="localidad" id="localidad">
-                                            <option value="none" selected disabled hidden>Seleccione una localidad</option>
-                                            <option selected></option>
-                                            <option value=''></option>
+                                        <select disabled class="form-select" aria-label="localidad" name="localidad" id="localidad">
+                                            <option value="none">Seleccione una localidad</option>
                                         </select>
                                     </div>
                                 </div>
@@ -107,13 +109,14 @@
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
         });
-        //change LOCALIDAD
+        //document.getElementById("localidad").disabled = true;
         var form_provincia = document.getElementById("provincia");
         var form_localidad = document.getElementById("localidad");
 
         form_provincia.addEventListener("input", function() {
 
             console.log("Form has changed!");
+            document.getElementById("localidad").disabled = false;
             var provincia = $(this).val();
             console.log("llega hasta aqui->" + provincia);
 

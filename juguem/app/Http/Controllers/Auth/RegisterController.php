@@ -58,10 +58,9 @@ class RegisterController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
-            /*
-            'localidad' => ['required', 'string', 'min:3'],
-            'provincia' => ['required', 'string', 'min:8',],
-            */
+            'localidad' => ['required'],
+            'provincia' => ['required'],
+            
         ]);
     }
 
@@ -89,7 +88,6 @@ class RegisterController extends Controller
 
     
         $provinciaRecibida = request()->input('provincia');
-        $pro='Valencia';
         $localidades=DB::table('localidad')
                     ->select('id_localidad','nombre','provincia')
                     ->where('provincia',$provinciaRecibida)

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\User;
 
 class HomeController extends Controller
 {
@@ -23,6 +24,20 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+         //compruebo si el usuario esta autenticado
+         if (auth()->check()) {
+            $userId = auth()->user()->id;
+            $user=User::findOrFail($userId);
+            $u=$user->tipo_usuario;
+            $showButton = false;
+          
+            if($u==1){
+                $showButton = true;
+            }
+            return view('home', ['showButton' => $showButton]);
+
+           
+         }
+        
     }
 }

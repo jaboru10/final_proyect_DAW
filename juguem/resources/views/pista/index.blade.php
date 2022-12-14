@@ -11,8 +11,15 @@
 </head>
 
 <body>
+@extends('layouts.app')
+
+@section('content')
     <div class="container">
-        <h4>Gestión de Pistas</h4>
+        
+        <div class="d-flex justify-content-center">
+            <p class="font-weight-bold"><h1 class="display-4 ">Gestión de Pistas</h1></p>
+        </div>
+        <br><br><br>
             <div class="col-xl12">
                 <div class="table-responsive">
                     <table class="table table-striped">
@@ -51,11 +58,13 @@
                         </tbody>
                     </table>
                     {{$pistas->links()}}
+                    <a href="{{route('user.admin')}}" class="btn btn-success">Volver</a>
                 </div>
             </div>
         </div>
     </div>
 </body>
+@endsection
 <!-- JavaScript Bundle with Popper -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
 </html>

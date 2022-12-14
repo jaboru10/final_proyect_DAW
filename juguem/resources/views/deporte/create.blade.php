@@ -21,8 +21,8 @@
                         <input type="text" class="form-control" name="nombre" required maxlength="50">
                     </div>
                     <div class="form-group">
-                        <label for="numero_jugadores">Numero de jugadores</label>
-                        <input type="text" class="form-control" name="numero_jugadores" required maxlength="50">
+                        
+                        
                     </div>
 
                     <div class="form-group">

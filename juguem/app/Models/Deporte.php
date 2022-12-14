@@ -11,7 +11,7 @@ class Deporte extends Model
     protected $table="deporte";
     protected $primaryKey="id_deporte";
     protected $fillable = [
-        'nombre','numero_jugadores'
+        'nombre'
     ];
 
     //no trabajo con las columna timestamp

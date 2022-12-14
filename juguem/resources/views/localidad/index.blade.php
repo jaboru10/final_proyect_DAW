@@ -71,6 +71,7 @@
                         </tbody>
                     </table>
                     {{$localidades->links()}}
+                    <a href="{{route('user.admin')}}" class="btn btn-success">Volver</a>
                 </div>
             </div>
         </div>

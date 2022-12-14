@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Localidad;
 use Illuminate\Support\Facades\DB;
+use Response;
 
 class UserController extends Controller
 {
@@ -20,6 +21,7 @@ class UserController extends Controller
         if (auth()->check()) {
             $userId = auth()->user()->id;
             $user=User::findOrFail($userId);
+            $provincias = Localidad::select('provincia')->distinct()->get();
             $tipoUser=0;
             if($user->tipo_usuario=1){
                 $tipoUser="Administrador";
@@ -28,10 +30,11 @@ class UserController extends Controller
             }
             
             //devolvemos el mobre de la localidad
-            $localidad=Localidad::findOrFail($userId);
+            $localidad=Localidad::findOrFail($user->id_localidad);
+            
         
             //return view('localidad.edit',compact('localidad'));
-            return view('auth.user.index',compact('user','tipoUser','localidad'));
+            return view('auth.user.index',compact('user','tipoUser','localidad','provincias'));
 
         }
     }
@@ -41,11 +44,18 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function admin()
     {
-        //
-        return view('deporte.create');
+        return view('admin');
+       
     }
+    public function gestionDeporte()
+    {
+        return view('deporte.index');
+       
+    }
+
+    
 
     /**
      * Store a newly created resource in storage.
@@ -55,14 +65,7 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
-        $deporte=new Deporte;
-        //$deporte->id_deporte=3;//esto esta mal
-        //$deporte->id_deporte=unsignedBigInteger('track_id')->nullable();
-        $deporte->nombre=$request->input('nombre');
-        $deporte->numero_jugadores=$request->input('numero_jugadores');
-        $deporte->save();
-        return redirect()->route('deporte.index');
+       
 
 
     }
@@ -87,9 +90,7 @@ class UserController extends Controller
     public function edit($id)
     {
         //
-        $deporte=Deporte::findOrFail($id);
         
-        return view('deporte.edit',compact('deporte'));
     }
 
     /**
@@ -102,11 +103,7 @@ class UserController extends Controller
     public function update(Request $request, $id)
     {
         //
-        $deporte=Deporte::findOrFail($id);
-        $deporte->nombre=$request->input('nombre');
-        $deporte->numero_jugadores=$request->input('numero_jugadores');
-        $deporte->save();
-        return redirect()->route('deporte.index');
+     
     }
 
     /**
@@ -118,10 +115,23 @@ class UserController extends Controller
     public function destroy($id)
     {
         //
-        $deporte=Deporte::findOrFail($id);
-        $deporte->delete();
-        return redirect()->route('deporte.index');
+     
 
 
+    }
+    protected function returnLocalidades(Request $request)
+    {
+
+    
+        $provinciaRecibida = request()->input('provincia');
+        $localidades=DB::table('localidad')
+                    ->select('id_localidad','nombre','provincia')
+                    ->where('provincia',$provinciaRecibida)
+                    ->get();
+        return response()->json($localidades);
+                   
+        
+
+      
     }
 }

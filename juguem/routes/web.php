@@ -27,8 +27,15 @@ Auth::routes();
 Route::resource('/deporte', DeporteController::class );
 Route::resource('/localidad', LocalidadController::class );
 Route::resource('/pista', PistaController::class );
-Route::resource('/partida', PartidaController::class );
+Route::resource('/partida', PartidaController::class);
 Route::resource('/user', UserController::class );
-Route::get('register/localidades', [RegisterController::class, 'returnLocalidades'])->name('ajaxRequest');;
+Route::get('register/localidades', [RegisterController::class, 'returnLocalidades'])->name('ajaxRequest');
+Route::get('user/localidades', [UserController::class, 'returnLocalidades'])->name('ajaxRequestUserContr');;
 Route::post('register/localidades', [RegisterController::class, 'returnLocalidades']);
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/historico', [PartidaController::class,'historico'])->name('historico');
+Route::get('/admin', [UserController::class,'admin'])->name('user.admin');
+Route::get('/gestionDeporte', [DeporteController::class,'index'])->name('user.admin.deporte');
+Route::get('/gestionPista', [PistaController::class,'index'])->name('user.admin.pista');
+Route::get('/gestionLocalidad', [LocalidadController::class,'index'])->name('user.admin.localidad');
+

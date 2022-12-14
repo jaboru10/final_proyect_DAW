@@ -17,6 +17,7 @@
 </head>
 
 <body>
+    
     <div class="container">
         <h4>Gestión de Deportes</h4>
         <div class="row">
@@ -35,15 +36,14 @@
                     </div>
                 </form>
             </div>
-            <div class="col-xl12">
+            <div class="col-l6">
                 <div class="table-responsive">
                     <table class="table table-striped">
                         <thead>
                             <tr>
                                 <th>Opciones</th>
-                                <th>ID</th>
                                 <th>Nombre</th>
-                                <th>Numero de jugadores</th>
+                               
                             </tr>
                         </thead>
                         <tbody>
@@ -61,9 +61,9 @@
                                 Eliminar
                                 </button>
                             </td>
-                                <td>{{$deporte->id_deporte}}</td>
+                                
                                 <td>{{$deporte->nombre}}</td>
-                                <td>{{$deporte->numero_jugadores}}</td>
+                                
                             </tr>
                                 @include('deporte.delete')
                             @endforeach
@@ -72,6 +72,7 @@
                     </table>
                     {{$deportes->links()}}
                 </div>
+                <a href="{{route('user.admin')}}" class="btn btn-success">Volver</a>
             </div>
         </div>
     </div>

@@ -19,7 +19,7 @@ class DeporteController extends Controller
         //$deportes=Deporte::all(); ESTO SERIA UTILIZANDO ELOQUENT
         //return $deportes; retorna en formato json
         $deportes=DB::table('deporte')//UTILIZAMOS query builder para hacer consultas a bd
-                    ->select('id_deporte','nombre','numero_jugadores')
+                    ->select('id_deporte','nombre')
                     ->where('nombre','LIKE','%'.$texto.'%')
                     //->orWhere('nombre','LIKE','%'.$texto.'%')
                     ->orderBy('nombre','asc')
@@ -53,7 +53,7 @@ class DeporteController extends Controller
         //$deporte->id_deporte=3;//esto esta mal
         //$deporte->id_deporte=unsignedBigInteger('track_id')->nullable();
         $deporte->nombre=$request->input('nombre');
-        $deporte->numero_jugadores=$request->input('numero_jugadores');
+        
         $deporte->save();
         return redirect()->route('deporte.index');
 
@@ -97,7 +97,7 @@ class DeporteController extends Controller
         //
         $deporte=Deporte::findOrFail($id);
         $deporte->nombre=$request->input('nombre');
-        $deporte->numero_jugadores=$request->input('numero_jugadores');
+    
         $deporte->save();
         return redirect()->route('deporte.index');
     }
